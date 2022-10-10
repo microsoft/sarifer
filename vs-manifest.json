@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json.schemastore.org/vsix-publish",
+    "categories": [ "data", "reporting" ],
+    "identity": {
+        "internalName": "MicrosoftSarifer"
+    },
+    "overview": "Content.md",
+    "priceCategory": "free",
+    "publisher": "wdgis",
+    "private": false,
+    "qna": true,
+    "repo": "https://github.com/microsoft/sarifer"
+}
