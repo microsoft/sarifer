@@ -147,6 +147,13 @@ if (-not $NoRestore) {
             Exit-WithFailureMessage $ScriptName "NuGet restore failed for $project."
         }
     }
+    foreach ($project in $Projects.SubModules) {
+        Write-Information "Restoring NuGet packages for $project..."
+        & $RepoRoot\.nuget\NuGet.exe restore $SourceRoot\sarif-visualstudio-extension\src\$project\$project.csproj -OutputDirectory "$NuGetPackageRoot" -Verbosity quiet
+        if ($LASTEXITCODE -ne 0) {
+            Exit-WithFailureMessage $ScriptName "NuGet restore failed for $project."
+        }
+    }
 }
 
 if (-not $NoBuild) {

@@ -14,10 +14,12 @@ $Projects = @{}
 $Projects.Vsix = @(
 	"Sarif.Sarifer.2022",
 	"Sarif.Sarifer")
-$Projects.NuGet = @("Sarif.Viewer.VisualStudio.Interop")
-$Projects.Library = @(
+$Projects.NuGet = @()
+$Projects.SubModules = @(
+	"Sarif.Viewer.VisualStudio.Interop",
 	"Sarif.Viewer.VisualStudio.Shell.2022",
 	"Sarif.Viewer.VisualStudio.Shell")
+$Projects.Library = @()
 $Projects.Product = $Projects.Vsix + $Projects.NuGet
 $Projects.Test = @(
 	"Sarif.Sarifer.UnitTests")
