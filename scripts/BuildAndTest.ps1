@@ -135,6 +135,8 @@ function Set-SarifFileAssociationRegistrySettings {
     }
 }
 
+git submodule update --init --recursive
+
 if (-not $NoClean) {
     Remove-DirectorySafely $BuildRoot
 }
