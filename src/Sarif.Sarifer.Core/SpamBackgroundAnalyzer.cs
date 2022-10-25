@@ -69,8 +69,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
 
                 if (this.currentSolutionDirectory != null)
                 {
-                    this.rules = LoadSearchDefinitionsFiles(this.fileSystem, this.currentSolutionDirectory);
-                    Trace.WriteLine($"Rules loaded: {this.rules.Count}");
+                    try
+                    {
+                        this.rules = LoadSearchDefinitionsFiles(this.fileSystem, this.currentSolutionDirectory);
+                        Trace.WriteLine($"Rules loaded: {this.rules.Count}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine($"Failed to load rules.\r\nError: {ex.Message}");
+                    }
                 }
             }
 

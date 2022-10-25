@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -113,11 +114,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
 
                     foreach (string targetFile in targetFiles)
                     {
-                        bool currentAnalysis;
+                        bool currentAnalysis = false;
                         var uri = new Uri(targetFile, UriKind.Absolute);
                         string text = File.ReadAllText(targetFile);
 
-                        currentAnalysis = this.AnalyzeCore(uri, text, solutionDirectory, sarifLogger, cancellationToken);
+                        try
+                        {
+                            currentAnalysis = this.AnalyzeCore(uri, text, solutionDirectory, sarifLogger, cancellationToken);
+                            Trace.WriteLine($"{uri} was analyzed.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.WriteLine($"Failed to analyze {uri}.\r\n Error: {ex}");
+                        }
 
                         if (!wasAnalyzed && currentAnalysis)
                         {
