@@ -33,8 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
     public sealed class SariferPackage : AsyncPackage, IDisposable
     {
         public const string PackageGuidString = "F70132AB-4095-477F-AAD2-81D3D581113B";
-        public const string OptionCategoryName = "Sarif Extension";
-        public const string OptionPageName = "Sarifer";
+        public const string OptionCategoryName = "Sarifer";
+        public const string OptionPageName = "General";
         public static readonly Guid PackageGuid = new Guid(PackageGuidString);
         private bool disposed;
         private AnalyzeSolutionCommand analyzeSolutionCommand;
