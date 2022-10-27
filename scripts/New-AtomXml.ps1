@@ -70,7 +70,7 @@ $version = Get-Version;
         <author>
             <name>1ES Security Tools Team</name>
         </author>
-        <content type="application/octet-stream" src="$FeedUri-$VsVersion/Microsoft.Sarif.Sarifer.vsix"/>
+        <content type="application/octet-stream" src="$FeedUri-sarifer-$VsVersion/Microsoft.Sarif.Sarifer.vsix"/>
         <Vsix xmlns="http://schemas.microsoft.com/developer/vsx-syndication-schema/2010" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
             <Id>$vsixId</Id>
             <Version>$version</Version>
@@ -80,7 +80,7 @@ $version = Get-Version;
             <DownloadCount xsi:nil="true"/>
         </Vsix>
         <link rel="releasenotes" type="text/markdown" href="https://github.com/microsoft/sarif-visualstudio-extension/blob/master/src/ReleaseHistory.md"/>
-        <link rel="icon" href="$FeedUri-$VsVersion/Triskele.ico"/>
+        <link rel="icon" href="$FeedUri-$VsVersion/Resources/Package.ico"/>
     </entry>
 </feed>
 "@ | Out-File $OutputPath
