@@ -32,8 +32,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer.Commands
 
                     List<string> targetFiles = SariferPackageCommand.GetFiles(project);
 
-                    this.backgroundAnalysisService.AnalyzeAsync(project.FullName, targetFiles, this.cancellationTokenSource.Token)
-                        .FileAndForget(FileAndForgetEventName.BackgroundAnalysisFailure);
+                    string logId = project.FullName;
+
+                    this.AnalyzeTargetsInBackgroundThread(logId, targetFiles, this.cancellationTokenSource.Token)
                 }
             }
         }

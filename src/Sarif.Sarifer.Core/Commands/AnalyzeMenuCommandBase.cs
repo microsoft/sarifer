@@ -2,8 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Threading;
+using System.Threading.Tasks;
 
 using EnvDTE;
 
@@ -11,6 +13,7 @@ using EnvDTE80;
 
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Threading;
 
 namespace Microsoft.CodeAnalysis.Sarif.Sarifer.Commands
 {
@@ -88,6 +91,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer.Commands
 
         protected virtual void AnalyzeTargets()
         {
+        }
+
+        protected void AnalyzeTargetsInBackgroundThread(string logId, IEnumerable<string> targetFiles, CancellationToken cancellationToken)
+        {
+            _ = ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
+            {
+                await TaskScheduler.Default;
+
+                this.backgroundAnalysisService.AnalyzeAsync(logId, targetFiles, cancellationToken)
+                .FileAndForget(FileAndForgetEventName.BackgroundAnalysisFailure);
+            });
         }
 
         protected virtual void Dispose(bool disposing)

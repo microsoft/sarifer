@@ -4,6 +4,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Threading;
+using System.Threading.Tasks;
 
 using Microsoft.Sarif.Viewer.Interop;
 using Microsoft.VisualStudio;
@@ -12,6 +13,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
+using Microsoft.VisualStudio.Threading;
 using Microsoft.VisualStudio.Utilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Sarifer
@@ -150,6 +152,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 this.SetRun(true);
                 try
                 {
+                    await TaskScheduler.Default;
+
                     await this.backgroundAnalysisService.Value.AnalyzeAsync(path, text, cancellationToken).ConfigureAwait(false);
                 }
                 finally
