@@ -58,12 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer.Commands
                     GetFilesRecursive(targetFiles, projectFolder);
                 }
             }
-            else if (projectItem.Kind == Constants.vsProjectItemKindSolutionItems && projectItem.SubProject != null)
+            else if (projectItem.Kind == EnvDTE.Constants.vsProjectItemKindSolutionItems && projectItem.SubProject != null)
             {
                 // this is for case solution has a folder at solution level and looking to its sub project
                 targetFiles.AddRange(GetFiles(projectItem.SubProject));
             }
-            else if (projectItem.Kind == Constants.vsProjectItemKindVirtualFolder)
+            else if (projectItem.Kind == EnvDTE.Constants.vsProjectItemKindVirtualFolder)
             {
                 // this is for case a project has a virtual folder which contains a bunch of physical files
                 foreach (ProjectItem projectFolder in projectItem.ProjectItems)

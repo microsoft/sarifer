@@ -25,17 +25,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
     /// </summary>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", ThisAssembly.AssemblyFileVersion, IconResourceID = 400)]
-    [Guid(PackageGuidString)]
+    [Guid(Constants.PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ComVisible(true)]
     [ProvideService(typeof(IBackgroundAnalysisService))]
-    [ProvideOptionPage(typeof(SariferOptionsPage), OptionCategoryName, OptionPageName, 0, 0, true)]
+    [ProvideOptionPage(typeof(SariferOptionsPage), Constants.OptionCategoryName, Constants.OptionPageName, 0, 0, true)]
     public sealed class SariferPackage : AsyncPackage, IDisposable
     {
-        public const string PackageGuidString = "F70132AB-4095-477F-AAD2-81D3D581113B";
-        public const string OptionCategoryName = "Sarifer";
-        public const string OptionPageName = "General";
-        public static readonly Guid PackageGuid = new Guid(PackageGuidString);
         private bool disposed;
         private AnalyzeSolutionCommand analyzeSolutionCommand;
         private AnalyzeProjectCommand analyzeProjectCommand;
@@ -92,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
 
             if (await this.GetServiceAsync(typeof(SVsOutputWindow)) is IVsOutputWindow output)
             {
-                this.outputWindowTraceListener = new OutputWindowTracerListener(output, "Sarifer");
+                this.outputWindowTraceListener = new OutputWindowTracerListener(output, Resources.SariferOutputPaneName);
             }
 
             SolutionEvents.OnBeforeCloseSolution += this.SolutionEvents_OnBeforeCloseSolution;

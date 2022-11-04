@@ -6,7 +6,7 @@
     <SharedGUID>710b6e5c-8322-4260-b131-41c18d23358f</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Sarif.Sarifer.Core</Import_RootNamespace>
+    <Import_RootNamespace>Microsoft.CodeAnalysis.Sarif.Sarifer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)BackgroundAnalysisService.cs" />
@@ -34,6 +34,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Options\SariferOptionsPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OutputWindowTracerListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SariferPackage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SariferPackageCommandIds.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SarifViewerBackgroundAnalysisSink.cs" />

@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer.Commands
 
                     string logId = project.FullName;
 
-                    this.AnalyzeTargetsInBackgroundThread(logId, targetFiles, this.cancellationTokenSource.Token)
+                    this.AnalyzeTargetsInBackgroundThread(logId, targetFiles, this.cancellationTokenSource.Token);
                 }
             }
         }

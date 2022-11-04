@@ -20,7 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
     {
         private readonly IFileSystem fileSystem;
         private string currentSolutionDirectory;
-        private ISet<Skimmer<AnalyzeContext>> rules;
 
         public SpamBackgroundAnalyzer()
         {
@@ -38,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
 
         internal static ISet<Skimmer<AnalyzeContext>> LoadSearchDefinitionsFiles(IFileSystem fileSystem, string solutionDirectory)
         {
-            string spamDirectory = Path.Combine(solutionDirectory, ".spam");
+            string spamDirectory = Path.Combine(solutionDirectory, Constants.RulesFolderName);
             if (!fileSystem.DirectoryExists(spamDirectory))
             {
                 return new HashSet<Skimmer<AnalyzeContext>>();
@@ -61,7 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
             }
 
             if (string.IsNullOrEmpty(solutionDirectory)
-                || (this.currentSolutionDirectory?.Equals(solutionDirectory, StringComparison.OrdinalIgnoreCase) != true))
+                || (this.currentSolutionDirectory?.Equals(solutionDirectory, StringComparison.OrdinalIgnoreCase) != true)
+                || this.rules?.Any() != true)
             {
                 // clear older rules
                 this.rules?.Clear();
@@ -71,12 +71,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 {
                     try
                     {
+                        var ruleTimer = new Stopwatch();
+                        ruleTimer.Start();
                         this.rules = LoadSearchDefinitionsFiles(this.fileSystem, this.currentSolutionDirectory);
-                        Trace.WriteLine($"Rules loaded: {this.rules.Count}");
+                        ruleTimer.Stop();
+                        Trace.WriteLine(string.Format(Resources.TraceLog_RuleLoaded, this.rules.Count, ruleTimer.ElapsedMilliseconds));
                     }
                     catch (Exception ex)
                     {
-                        Trace.WriteLine($"Failed to load rules.\r\nError: {ex.Message}");
+                        Trace.WriteLine(string.Format(Resources.TraceLog_LoadingRuleFailed, ex.Message));
                     }
                 }
             }
@@ -86,8 +89,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 return false;
             }
 
-            Trace.WriteLine($"Analyzing {uri}...");
+            Trace.WriteLine(string.Format(Resources.TraceLog_AnalyzingTarget, uri));
 
+            var analyzeTimer = new Stopwatch();
+            analyzeTimer.Start();
             var disabledSkimmers = new HashSet<string>();
 
             var context = new AnalyzeContext
@@ -108,12 +113,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 // Filtering file before analyzing.
                 IEnumerable<Skimmer<AnalyzeContext>> applicableSkimmers = AnalyzeCommand.DetermineApplicabilityForTargetHelper(context, this.rules, disabledSkimmers);
 
-                Trace.WriteLine($"Applicable rules count: {applicableSkimmers.Count()}");
+                Trace.WriteLine(string.Format(Resources.TraceLog_ApplicableRuleCount, applicableSkimmers.Count()));
 
                 AnalyzeCommand.AnalyzeTargetHelper(context, applicableSkimmers, disabledSkimmers);
             }
 
-            Trace.WriteLine($"Analyzing {uri} completed.");
+            analyzeTimer.Stop();
+            Trace.WriteLine(string.Format(Resources.TraceLog_TargetAnalyzed, uri, analyzeTimer.ElapsedMilliseconds));
 
             return true;
         }

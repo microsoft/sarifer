@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.PatternMatcher;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 // TODO: Include tool name in logId. Replace non-alphanum chars with underscore for guaranteed file system compat.
@@ -26,6 +28,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
     /// </remarks>
     public abstract class BackgroundAnalyzerBase : IBackgroundAnalyzer
     {
+        protected ISet<Skimmer<AnalyzeContext>> rules;
+
         private const int DefaultBufferSize = 1024;
 
         private ISariferOption option;
@@ -82,6 +86,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                     await writer.FlushAsync().ConfigureAwait(continueOnCapturedContext: false);
                 }
             }
+
+            this.rules?.Clear();
 
             if (!wasAnalyzed)
             {
@@ -143,6 +149,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 }
             }
 
+            this.rules?.Clear();
+
             if (!wasAnalyzed)
             {
                 stream.Dispose();
@@ -185,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
             new SarifLogger(
                 writer,
                 LogFilePersistenceOptions.None,
-                dataToInsert: OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.TextFiles | OptionallyEmittedData.VersionControlDetails,
+                dataToInsert: OptionallyEmittedData.VersionControlDetails,
                 dataToRemove: OptionallyEmittedData.None,
                 tool: this.MakeTool(),
                 levels: new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },

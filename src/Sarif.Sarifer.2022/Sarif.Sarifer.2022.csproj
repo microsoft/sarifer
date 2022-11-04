@@ -84,12 +84,12 @@
     <Content Include="$(MSBuildThisFileDirectory)..\packages\re2.managed\1.10.0\runtimes\win-x64\native\RE2.Native.x64.dll" Pack="true" Link="runtimes/win-x64/native/RE2.Native.x64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackagePath>runtimes/win-x64/native</PackagePath>
-	  <IncludeInVSIX>true</IncludeInVSIX>
+      <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)..\packages\re2.managed\1.10.0\runtimes\win-x64\native\RE2.Native.x64.pdb" Pack="true" Link="runtimes/win-x64/native/RE2.Native.x64.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackagePath>runtimes/win-x64/native</PackagePath>
-	  <IncludeInVSIX>true</IncludeInVSIX>
+      <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +138,14 @@
     <ProjectReference Include="..\sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Interop\Sarif.Viewer.VisualStudio.Interop.csproj">
       <Project>{9d407555-d268-461e-bfaf-4251b0fbf7c9}</Project>
       <Name>Sarif.Viewer.VisualStudio.Interop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Shell.2022\Sarif.Viewer.VisualStudio.Shell.2022.csproj">
+      <Project>{3585559d-e715-41de-ae14-f2e18eb516ca}</Project>
+      <Name>Sarif.Viewer.VisualStudio.Shell.2022</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sarif.Sarifer.Resources\Sarif.Sarifer.Resources.csproj">
+      <Project>{46eb78b5-ec1e-4c78-8d9b-ce7493ddf0df}</Project>
+      <Name>Sarif.Sarifer.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
