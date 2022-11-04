@@ -19,7 +19,8 @@ $Projects.SubModules = @(
 	"Sarif.Viewer.VisualStudio.Interop",
 	"Sarif.Viewer.VisualStudio.Shell.2022",
 	"Sarif.Viewer.VisualStudio.Shell")
-$Projects.Library = @()
+$Projects.Library = @(
+	"Sarif.Sarifer.Resources")
 $Projects.Product = $Projects.Vsix + $Projects.NuGet
 $Projects.Test = @(
 	"Sarif.Sarifer.UnitTests")
