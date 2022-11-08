@@ -1,0 +1,3 @@
+[submodule "src/sarif-visualstudio-extension"]
+	path = src/sarif-visualstudio-extension
+	url = https://github.com/microsoft/sarif-visualstudio-extension

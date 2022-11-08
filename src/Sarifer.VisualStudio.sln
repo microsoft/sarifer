@@ -1,0 +1,150 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2D702C24-103A-4561-8D86-62DBB2831900}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		build.props = build.props
+		..\BuildAndTest.cmd = ..\BuildAndTest.cmd
+		..\scripts\BuildAndTest.ps1 = ..\scripts\BuildAndTest.ps1
+		..\scripts\BuildPackagesFromSigningDirectory.ps1 = ..\scripts\BuildPackagesFromSigningDirectory.ps1
+		..\scripts\New-AtomXml.ps1 = ..\scripts\New-AtomXml.ps1
+		..\scripts\New-VersionConstantsFile.ps1 = ..\scripts\New-VersionConstantsFile.ps1
+		..\scripts\Projects.psm1 = ..\scripts\Projects.psm1
+		..\scripts\RegistrySettings.ps1 = ..\scripts\RegistrySettings.ps1
+		ReleaseHistory.md = ReleaseHistory.md
+		..\scripts\Run-Tests.ps1 = ..\scripts\Run-Tests.ps1
+		..\scripts\ScriptUtilities.psm1 = ..\scripts\ScriptUtilities.psm1
+		..\scripts\Unzip.ps1 = ..\scripts\Unzip.ps1
+		version.json = version.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio.Interop", "sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Interop\Sarif.Viewer.VisualStudio.Interop.csproj", "{9D407555-D268-461E-BFAF-4251B0FBF7C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Sarifer", "Sarif.Sarifer\Sarif.Sarifer.csproj", "{F3E3199F-C005-4A14-B96B-974896986EDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Sarifer.UnitTests", "Sarif.Sarifer.UnitTests\Sarif.Sarifer.UnitTests.csproj", "{52579A83-C0BF-4307-95CD-39C388070736}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Sarif.Sarifer.Core", "Sarif.Sarifer.Core\Sarif.Sarifer.Core.shproj", "{710B6E5C-8322-4260-B131-41C18D23358F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Sarifer.2022", "Sarif.Sarifer.2022\Sarif.Sarifer.2022.csproj", "{DD071EEA-8956-48E7-871C-FC612B7E3627}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Sarif.Viewer.VisualStudio.Shell.Core", "sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Shell.Core\Sarif.Viewer.VisualStudio.Shell.Core.shproj", "{E4649ECF-3DAD-418A-B83B-C35B71D50C70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio.Shell.2022", "sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Shell.2022\Sarif.Viewer.VisualStudio.Shell.2022.csproj", "{3585559D-E715-41DE-AE14-F2E18EB516CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio.Shell", "sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Shell\Sarif.Viewer.VisualStudio.Shell.csproj", "{C4714E68-1701-45D5-9510-E298BB227CF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Sarifer.Resources", "Sarif.Sarifer.Resources\Sarif.Sarifer.Resources.csproj", "{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AnyCPU = Debug|AnyCPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|AnyCPU = Release|AnyCPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Debug|x64.Build.0 = Debug|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Debug|x86.Build.0 = Debug|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Release|x64.ActiveCfg = Release|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Release|x64.Build.0 = Release|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D407555-D268-461E-BFAF-4251B0FBF7C9}.Release|x86.Build.0 = Release|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Debug|x64.Build.0 = Debug|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Debug|x86.Build.0 = Debug|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Release|x64.ActiveCfg = Release|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Release|x64.Build.0 = Release|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Release|x86.ActiveCfg = Release|Any CPU
+		{F3E3199F-C005-4A14-B96B-974896986EDC}.Release|x86.Build.0 = Release|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Debug|x64.Build.0 = Debug|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Debug|x86.Build.0 = Debug|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Release|x64.ActiveCfg = Release|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Release|x64.Build.0 = Release|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Release|x86.ActiveCfg = Release|Any CPU
+		{52579A83-C0BF-4307-95CD-39C388070736}.Release|x86.Build.0 = Release|Any CPU
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Debug|x64.ActiveCfg = Debug|x64
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Debug|x64.Build.0 = Debug|x64
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Debug|x86.ActiveCfg = Debug|x86
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Debug|x86.Build.0 = Debug|x86
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Release|x64.ActiveCfg = Release|x64
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Release|x64.Build.0 = Release|x64
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Release|x86.ActiveCfg = Release|x86
+		{DD071EEA-8956-48E7-871C-FC612B7E3627}.Release|x86.Build.0 = Release|x86
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Debug|x64.ActiveCfg = Debug|x64
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Debug|x64.Build.0 = Debug|x64
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Debug|x86.ActiveCfg = Debug|x86
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Debug|x86.Build.0 = Debug|x86
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Release|x64.ActiveCfg = Release|x64
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Release|x64.Build.0 = Release|x64
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Release|x86.ActiveCfg = Release|x86
+		{3585559D-E715-41DE-AE14-F2E18EB516CA}.Release|x86.Build.0 = Release|x86
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Debug|x64.ActiveCfg = Debug|x64
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Debug|x64.Build.0 = Debug|x64
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Debug|x86.ActiveCfg = Debug|x86
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Debug|x86.Build.0 = Debug|x86
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Release|x64.ActiveCfg = Release|x64
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Release|x64.Build.0 = Release|x64
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Release|x86.ActiveCfg = Release|x86
+		{C4714E68-1701-45D5-9510-E298BB227CF2}.Release|x86.Build.0 = Release|x86
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Debug|x64.Build.0 = Debug|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Debug|x86.Build.0 = Debug|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Release|x64.ActiveCfg = Release|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Release|x64.Build.0 = Release|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Release|x86.ActiveCfg = Release|Any CPU
+		{46EB78B5-EC1E-4C78-8D9B-CE7493DDF0DF}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {767E843F-A395-4BD3-9275-69B35841770B}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Shell.Core\Sarif.Viewer.VisualStudio.Shell.Core.projitems*{3585559d-e715-41de-ae14-f2e18eb516ca}*SharedItemsImports = 4
+		Sarif.Sarifer.Core\Sarif.Sarifer.Core.projitems*{710b6e5c-8322-4260-b131-41c18d23358f}*SharedItemsImports = 13
+		sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Shell.Core\Sarif.Viewer.VisualStudio.Shell.Core.projitems*{c4714e68-1701-45d5-9510-e298bb227cf2}*SharedItemsImports = 4
+		Sarif.Sarifer.Core\Sarif.Sarifer.Core.projitems*{dd071eea-8956-48e7-871c-fc612b7e3627}*SharedItemsImports = 4
+		sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Shell.Core\Sarif.Viewer.VisualStudio.Shell.Core.projitems*{e4649ecf-3dad-418a-b83b-c35b71d50c70}*SharedItemsImports = 13
+		Sarif.Sarifer.Core\Sarif.Sarifer.Core.projitems*{f3e3199f-c005-4a14-b96b-974896986edc}*SharedItemsImports = 4
+	EndGlobalSection
+EndGlobal
