@@ -130,7 +130,7 @@
     <value>Failed to load rules.\r\nError: {0}.</value>
   </data>
   <data name="TraceLog_RuleLoaded" xml:space="preserve">
-    <value>Rules loaded: {0} in {1} ms.</value>
+    <value>{0} rules loaded in {1} ms.</value>
   </data>
   <data name="TraceLog_TargetAnalyzed" xml:space="preserve">
     <value>Analyzing {0} completed in {1} ms.</value>
