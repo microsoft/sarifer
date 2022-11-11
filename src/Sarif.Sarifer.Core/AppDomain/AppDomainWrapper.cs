@@ -2,12 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Windows.Controls;
 
 namespace Microsoft.CodeAnalysis.Sarif.Sarifer
 {
@@ -55,24 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
             {
                 return default;
             }
-        }
-
-        public CancellableProxy CreateCancellableProxy()
-        {
-            string assemblyPath = Assembly.GetExecutingAssembly().Location;
-            CancellableProxy proxy = null;
-            try
-            {
-                proxy = (CancellableProxy)this.childDomain.CreateInstanceFrom(
-                    assemblyPath,
-                    typeof(CancellableProxy).FullName).Unwrap();
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex.Message);
-            }
-
-            return proxy;
         }
 
         public void Dispose()

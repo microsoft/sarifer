@@ -6,15 +6,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.PatternMatcher;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-
-using static System.Net.Mime.MediaTypeNames;
 
 // TODO: Include tool name in logId. Replace non-alphanum chars with underscore for guaranteed file system compat.
 

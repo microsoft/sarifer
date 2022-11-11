@@ -10,8 +10,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using static System.Net.Mime.MediaTypeNames;
-
 namespace Microsoft.CodeAnalysis.Sarif.Sarifer
 {
     /// <summary>
