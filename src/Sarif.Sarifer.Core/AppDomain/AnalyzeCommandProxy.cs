@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 levels: new List<FailureLevel> { FailureLevel.Error, FailureLevel.Warning, FailureLevel.Note, FailureLevel.None },
                 kinds: this.GetResultKinds(this.ExtensionOption),
                 closeWriterOnDispose: false))
-           {
+            {
                 sarifLogger.AnalysisStarted();
 
                 foreach (string targetFile in targetFiles.Keys)
