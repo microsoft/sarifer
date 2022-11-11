@@ -42,9 +42,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
         /// A <see cref="CancellationToken"/> that can be used to cancel the background analysis.
         /// </param>
         /// <returns>
-        /// A <see cref="Task{Stream}"/> that represents the result of the background analysis.
+        /// A <see cref="Task{String}"/> that represents the result of the background analysis.
         /// </returns>
-        Task<Stream> AnalyzeAsync(string path, string text, CancellationToken cancellationToken);
+        Task<string> AnalyzeAsync(string path, string text, CancellationToken cancellationToken);
 
         /// <summary>
         /// Analyzes the specified files.
@@ -58,6 +58,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
         /// <returns>
         /// A <see cref="Task{Stream}"/> that represents the result of the background analysis.
         /// </returns>
-        Task<Stream> AnalyzeAsync(IEnumerable<string> targetFiles, CancellationToken cancellationToken);
+        Task<string> AnalyzeAsync(IEnumerable<string> targetFiles, CancellationToken cancellationToken);
     }
 }

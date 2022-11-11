@@ -9,6 +9,10 @@
     <Import_RootNamespace>Microsoft.CodeAnalysis.Sarif.Sarifer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AppDomain\AnalyzeCommandProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AppDomain\AppDomainWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AppDomain\CancellableProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AppDomain\ITokenSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BackgroundAnalysisService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BackgroundAnalysisTextViewCreationListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BackgroundAnalyzerBase.cs" />

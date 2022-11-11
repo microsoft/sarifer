@@ -144,6 +144,7 @@ Global
 		Sarif.Sarifer.Core\Sarif.Sarifer.Core.projitems*{710b6e5c-8322-4260-b131-41c18d23358f}*SharedItemsImports = 13
 		sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Shell.Core\Sarif.Viewer.VisualStudio.Shell.Core.projitems*{c4714e68-1701-45d5-9510-e298bb227cf2}*SharedItemsImports = 4
 		Sarif.Sarifer.Core\Sarif.Sarifer.Core.projitems*{dd071eea-8956-48e7-871c-fc612b7e3627}*SharedItemsImports = 4
+		sarif-visualstudio-extension\src\Sarif.Viewer.VisualStudio.Shell.Core\Sarif.Viewer.VisualStudio.Shell.Core.projitems*{e4649ecf-3dad-418a-b83b-c35b71d50c70}*SharedItemsImports = 13
 		Sarif.Sarifer.Core\Sarif.Sarifer.Core.projitems*{f3e3199f-c005-4a14-b96b-974896986edc}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal
