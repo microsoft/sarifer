@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -47,8 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
             {
                 return (T)Convert.ChangeType(instance, typeof(T));
             }
-            catch (InvalidCastException)
+            catch (InvalidCastException ice)
             {
+                Trace.WriteLine($"Cannot create the instance of {typeof(T).Name}. Exception: {ice}");
                 return default;
             }
         }
@@ -78,10 +80,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
             }
 
             // If not able to load assembly above, try to load by filename in the same dir of original assembly
+            // example args.Name: Microsoft.Sarif.Sarifer, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null
             string[] parts = args.Name.Split(',');
-            string file = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + parts[0].Trim() + ".dll";
+            string file = Path.GetDirectoryName(assemblyFullPath) + "\\" + parts[0].Trim() + ".dll";
 
-            return Assembly.LoadFrom(file);
+            try
+            {
+                return Assembly.LoadFrom(file);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"Cannot resolve assembly {file}. Exception: {ex}");
+            }
+
+            return null;
         }
     }
 }
