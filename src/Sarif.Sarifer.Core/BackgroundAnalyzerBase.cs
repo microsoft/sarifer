@@ -62,17 +62,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
 
             string sarifText = null;
 
-            using (var wrapper = new AppDomainWrapper())
+            try
             {
-                CancellableProxy cancellable = wrapper.CreateInstance<CancellableProxy>();
-                using (cancellationToken.Register(() => cancellable.Cancel()))
+                using (var wrapper = new AppDomainWrapper())
                 {
-                    AnalyzeCommandProxy proxy = wrapper.CreateInstance<AnalyzeCommandProxy>();
-                    if (proxy != null)
+                    CancellableProxy cancellable = wrapper.CreateInstance<CancellableProxy>();
+                    using (cancellationToken.Register(() => cancellable.Cancel()))
                     {
-                        sarifText = proxy.DoWork(solutionDirectory, path, text, cancellable);
+                        AnalyzeCommandProxy proxy = wrapper.CreateInstance<AnalyzeCommandProxy>();
+                        if (proxy != null)
+                        {
+                            sarifText = proxy.DoWork(solutionDirectory, path, text, cancellable);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
             }
 
             return sarifText;
