@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,14 +40,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 return;
             }
 
-            var tasks = new List<Task<Stream>>(this.analyzers.Count());
+            var tasks = new List<Task<string>>(this.analyzers.Count());
 
             foreach (IBackgroundAnalyzer analyzer in this.analyzers)
             {
                 tasks.Add(analyzer.AnalyzeAsync(path, text, cancellationToken));
             }
 
-            Stream[] streams = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext: false);
+            string[] sarifStrings = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext: false);
+
+            var streams = new Stream[sarifStrings.Length];
+
+            for (int i = 0; i < sarifStrings.Length; i++)
+            {
+                byte[] byteArray = Encoding.ASCII.GetBytes(sarifStrings[i]);
+                streams[i] = new MemoryStream(byteArray);
+            }
 
             try
             {
@@ -63,14 +72,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
         public async Task AnalyzeAsync(string logId, IEnumerable<string> targetFiles, CancellationToken cancellationToken)
         {
             this.canAnalyzeFile = false;
-            var tasks = new List<Task<Stream>>(this.analyzers.Count());
+            var tasks = new List<Task<string>>(this.analyzers.Count());
 
             foreach (IBackgroundAnalyzer analyzer in this.analyzers)
             {
                 tasks.Add(analyzer.AnalyzeAsync(targetFiles, cancellationToken));
             }
 
-            Stream[] streams = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext: false);
+            string[] sarifStrings = await Task.WhenAll(tasks).ConfigureAwait(continueOnCapturedContext: false);
+
+            var streams = new Stream[sarifStrings.Length];
+
+            for (int i = 0; i < sarifStrings.Length; i++)
+            {
+                byte[] byteArray = Encoding.ASCII.GetBytes(sarifStrings[i]);
+                streams[i] = new MemoryStream(byteArray);
+            }
+
             try
             {
                 await this.WriteStreamsToSinksAsync(logId, streams, cleanAll: true).ConfigureAwait(continueOnCapturedContext: false);

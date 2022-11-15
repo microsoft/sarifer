@@ -59,32 +59,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 return false;
             }
 
-            if (string.IsNullOrEmpty(solutionDirectory)
-                || (this.currentSolutionDirectory?.Equals(solutionDirectory, StringComparison.OrdinalIgnoreCase) != true)
-                || this.rules?.Any() != true)
+            ISet<Skimmer<AnalyzeContext>> rules = null;
+
+            if (!string.IsNullOrEmpty(solutionDirectory))
             {
-                // clear older rules
-                this.rules?.Clear();
                 this.currentSolutionDirectory = solutionDirectory;
 
-                if (this.currentSolutionDirectory != null)
+                try
                 {
-                    try
-                    {
-                        var ruleTimer = new Stopwatch();
-                        ruleTimer.Start();
-                        this.rules = LoadSearchDefinitionsFiles(this.fileSystem, this.currentSolutionDirectory);
-                        ruleTimer.Stop();
-                        Trace.WriteLine(string.Format(Resources.TraceLog_RuleLoaded, this.rules.Count, ruleTimer.ElapsedMilliseconds));
-                    }
-                    catch (Exception ex)
-                    {
-                        Trace.WriteLine(string.Format(Resources.TraceLog_LoadingRuleFailed, ex.Message));
-                    }
+                    var ruleTimer = new Stopwatch();
+                    ruleTimer.Start();
+                    rules = LoadSearchDefinitionsFiles(this.fileSystem, this.currentSolutionDirectory);
+                    ruleTimer.Stop();
+                    Trace.WriteLine(string.Format(Resources.TraceLog_RuleLoaded, rules.Count, ruleTimer.ElapsedMilliseconds));
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(string.Format(Resources.TraceLog_LoadingRuleFailed, ex.Message));
                 }
             }
 
-            if (this.rules == null || this.rules.Count == 0)
+            if (rules == null || rules.Count == 0)
             {
                 return false;
             }
@@ -111,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 FileRegionsCache.Instance.ClearCache();
 
                 // Filtering file before analyzing.
-                IEnumerable<Skimmer<AnalyzeContext>> applicableSkimmers = AnalyzeCommand.DetermineApplicabilityForTargetHelper(context, this.rules, disabledSkimmers);
+                IEnumerable<Skimmer<AnalyzeContext>> applicableSkimmers = AnalyzeCommand.DetermineApplicabilityForTargetHelper(context, rules, disabledSkimmers);
 
                 Trace.WriteLine(string.Format(Resources.TraceLog_ApplicableRuleCount, applicableSkimmers.Count()));
 

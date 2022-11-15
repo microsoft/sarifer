@@ -6,12 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.PatternMatcher;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 // TODO: Include tool name in logId. Replace non-alphanum chars with underscore for guaranteed file system compat.
@@ -28,8 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
     /// </remarks>
     public abstract class BackgroundAnalyzerBase : IBackgroundAnalyzer
     {
-        protected ISet<Skimmer<AnalyzeContext>> rules;
-
         private const int DefaultBufferSize = 1024;
 
         private ISariferOption option;
@@ -53,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
         }
 
         /// <inheritdoc/>
-        public async Task<Stream> AnalyzeAsync(string path, string text, CancellationToken cancellationToken)
+        public async Task<string> AnalyzeAsync(string path, string text, CancellationToken cancellationToken)
         {
             text = text ?? throw new ArgumentNullException(nameof(text));
 
@@ -62,102 +57,69 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
             // If we don't have a solutionDirectory, then, we don't need to analyze.
             if (string.IsNullOrEmpty(solutionDirectory))
             {
-                return Stream.Null;
+                return null;
             }
 
-            var stream = new MemoryStream();
-            bool wasAnalyzed;
-            using (var writer = new StreamWriter(stream, Encoding.UTF8, DefaultBufferSize, leaveOpen: true))
+            string sarifText = null;
+
+            try
             {
-                using (SarifLogger sarifLogger = this.MakeSarifLogger(writer))
+                using (var wrapper = new AppDomainWrapper())
                 {
-                    sarifLogger.AnalysisStarted();
-
-                    // TODO: What do we do when path is null (text buffer with no backing file)?
-                    Uri uri = path != null ? new Uri(path, UriKind.Absolute) : null;
-
-                    wasAnalyzed = this.AnalyzeCore(uri, text, solutionDirectory, sarifLogger, cancellationToken);
-
-                    sarifLogger.AnalysisStopped(RuntimeConditions.None);
-                }
-
-                if (wasAnalyzed)
-                {
-                    await writer.FlushAsync().ConfigureAwait(continueOnCapturedContext: false);
+                    CancellableProxy cancellable = wrapper.CreateInstance<CancellableProxy>();
+                    using (cancellationToken.Register(() => cancellable.Cancel()))
+                    {
+                        AnalyzeCommandProxy proxy = wrapper.CreateInstance<AnalyzeCommandProxy>();
+                        if (proxy != null)
+                        {
+                            sarifText = proxy.DoWork(solutionDirectory, path, text, cancellable);
+                        }
+                    }
                 }
             }
-
-            this.rules?.Clear();
-
-            if (!wasAnalyzed)
+            catch (Exception ex)
             {
-                stream.Dispose();
-                return Stream.Null;
+                Trace.WriteLine(ex.Message);
             }
 
-            return stream;
+            return sarifText;
         }
 
         /// <inheritdoc/>
-        public async Task<Stream> AnalyzeAsync(IEnumerable<string> targetFiles, CancellationToken cancellationToken)
+        public async Task<string> AnalyzeAsync(IEnumerable<string> targetFiles, CancellationToken cancellationToken)
         {
             targetFiles = targetFiles ?? throw new ArgumentNullException(nameof(targetFiles));
 
             if (!targetFiles.Any())
             {
-                return Stream.Null;
+                return null;
             }
 
             string solutionDirectory = await VsUtilities.GetSolutionDirectoryAsync().ConfigureAwait(continueOnCapturedContext: false);
 
-            var stream = new MemoryStream();
-            bool wasAnalyzed = false;
-            using (var writer = new StreamWriter(stream, Encoding.UTF8, DefaultBufferSize, leaveOpen: true))
+            string sarifText = null;
+
+            try
             {
-                using (SarifLogger sarifLogger = this.MakeSarifLogger(writer))
+                using (var wrapper = new AppDomainWrapper())
                 {
-                    sarifLogger.AnalysisStarted();
-
-                    foreach (string targetFile in targetFiles)
+                    CancellableProxy cancellable = wrapper.CreateInstance<CancellableProxy>();
+                    using (cancellationToken.Register(() => cancellable.Cancel()))
                     {
-                        bool currentAnalysis = false;
-                        var uri = new Uri(targetFile, UriKind.Absolute);
-                        string text = File.ReadAllText(targetFile);
-
-                        try
+                        AnalyzeCommandProxy proxy = wrapper.CreateInstance<AnalyzeCommandProxy>();
+                        if (proxy != null)
                         {
-                            currentAnalysis = this.AnalyzeCore(uri, text, solutionDirectory, sarifLogger, cancellationToken);
-                            Trace.WriteLine($"{uri} was analyzed.");
-                        }
-                        catch (Exception ex)
-                        {
-                            Trace.WriteLine($"Failed to analyze {uri}.\r\n Error: {ex}");
-                        }
-
-                        if (!wasAnalyzed && currentAnalysis)
-                        {
-                            wasAnalyzed = currentAnalysis;
+                            sarifText = proxy.DoWork(solutionDirectory, targetFiles, cancellable);
                         }
                     }
-
-                    sarifLogger.AnalysisStopped(RuntimeConditions.None);
-                }
-
-                if (wasAnalyzed)
-                {
-                    await writer.FlushAsync().ConfigureAwait(continueOnCapturedContext: false);
                 }
             }
-
-            this.rules?.Clear();
-
-            if (!wasAnalyzed)
+            catch (Exception ex)
             {
-                stream.Dispose();
-                return Stream.Null;
+                Trace.WriteLine(ex.Message);
             }
 
-            return stream;
+            return sarifText;
         }
 
         /// <summary>
