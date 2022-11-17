@@ -39,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Options\SariferOptionsPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OutputWindowTracerListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RunningDocTableEventsHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SariferPackage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SariferPackageCommandIds.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SarifViewerBackgroundAnalysisSink.cs" />

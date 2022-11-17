@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
     {
         private const string AnyContentType = "any";
         private SarifViewerInterop sarifViewerInterop;
-        private TextEditIdleAssistant inputAssistant;
+
         private bool subscribed;
         private bool disposed;
         private int isRunning;
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 // is loaded.
                 this.textBufferViewTracker.FirstViewAdded += this.TextBufferViewTracker_FirstViewAdded;
                 this.textBufferViewTracker.LastViewRemoved += this.TextBufferViewTracker_LastViewRemoved;
-                this.textBufferViewTracker.ViewUpdated += this.TextBufferViewTracker_ViewUpdated;
+
                 this.subscribed = true;
             }
 
@@ -87,18 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
 
             textView.Closed += (object sender, EventArgs e) => this.TextView_Closed(textView);
 
-            // TextBuffer.Changed event is a performance critical event, whose handlers directly affect typing responsiveness.
-            // Unless it's required to handle this event synchronously on the UI thread.
-            // As suggested listen to Microsoft.VisualStudio.Text.ITextBuffer2.ChangedOnBackground event instead.
-            if (textView.TextBuffer is VisualStudio.Text.ITextBuffer2 oldBuffer)
-            {
-                oldBuffer.ChangedOnBackground += (object sender, VisualStudio.Text.TextContentChangedEventArgs e) => this.TextBuffer_ChangedOnBackground(textView);
-            }
-
             this.textBufferViewTracker.AddTextView(textView, path, text);
-
-            this.inputAssistant = new TextEditIdleAssistant();
-            this.inputAssistant.Idled += this.InputAssistant_Idled;
         }
 
         public void Dispose()
@@ -113,30 +102,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
             {
                 if (disposing)
                 {
-                    this.textBufferViewTracker.Clear();
-                    this.inputAssistant.Dispose();
+                    this.textBufferViewTracker?.Clear();
                 }
 
                 this.disposed = true;
             }
-        }
-
-        private void InputAssistant_Idled(object sender, TextEditIdledEventArgs e)
-        {
-            ITextView textView = e.TextView;
-            string text = textView.TextBuffer.CurrentSnapshot.GetText();
-            this.textBufferViewTracker.UpdateTextView(textView, text);
-        }
-
-        private void TextBufferViewTracker_ViewUpdated(object sender, ViewUpdatedEventArgs e)
-        {
-            this.BackgroundAnalyzeAsync(e.Path, e.Text, e.CancellationToken)
-                .FileAndForget(FileAndForgetEventName.BackgroundAnalysisFailure);
-        }
-
-        private void TextBuffer_ChangedOnBackground(ITextView textView)
-        {
-            this.inputAssistant.TextChanged(new TextEditIdledEventArgs(textView));
         }
 
         private void TextBufferViewTracker_FirstViewAdded(object sender, FirstViewAddedEventArgs e)

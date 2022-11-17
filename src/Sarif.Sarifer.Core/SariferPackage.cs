@@ -93,6 +93,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
 
             SolutionEvents.OnBeforeCloseSolution += this.SolutionEvents_OnBeforeCloseSolution;
 
+            // handle RunningDocTable events
+            var runningDocumentTable = GetGlobalService(typeof(SVsRunningDocumentTable)) as IVsRunningDocumentTable;
+            runningDocumentTable.AdviseRunningDocTableEvents(new RunningDocTableEventsHandler(ServiceProvider.GlobalProvider), out uint cookie);
+
             await SariferOption.InitializeAsync(this).ConfigureAwait(false);
         }
 
