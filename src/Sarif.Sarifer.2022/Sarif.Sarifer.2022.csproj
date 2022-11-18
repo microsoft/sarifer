@@ -81,12 +81,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Copy native outputs to the correct platform-specific folder in the NuGet Package output -->
-    <Content Include="$(MSBuildThisFileDirectory)..\packages\re2.managed\1.10.0\runtimes\win-x64\native\RE2.Native.x64.dll" Pack="true" Link="runtimes/win-x64/native/RE2.Native.x64.dll">
+    <Content Include="$(NuGetPackageRoot)\re2.managed\1.10.0\runtimes\win-x64\native\RE2.Native.x64.dll" Pack="true" Link="runtimes/win-x64/native/RE2.Native.x64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackagePath>runtimes/win-x64/native</PackagePath>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)..\packages\re2.managed\1.10.0\runtimes\win-x64\native\RE2.Native.x64.pdb" Pack="true" Link="runtimes/win-x64/native/RE2.Native.x64.pdb">
+    <Content Include="$(NuGetPackageRoot)\re2.managed\1.10.0\runtimes\win-x64\native\RE2.Native.x64.pdb" Pack="true" Link="runtimes/win-x64/native/RE2.Native.x64.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackagePath>runtimes/win-x64/native</PackagePath>
       <IncludeInVSIX>true</IncludeInVSIX>
