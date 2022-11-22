@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
             };
 
             this.childDomain = AppDomain.CreateDomain(subDomainName, null, domainSetup);
-            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 
         public AppDomain ChildDomain => this.childDomain;
@@ -62,6 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
                 AppDomain.Unload(this.childDomain);
                 this.childDomain = null;
             }
+
+            AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
         }
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
