@@ -31,13 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Sarifer
         /// Gets the Windows Presentation Foundation (WPF) child element to be hosted inside the Options dialog page.
         /// </summary>
         /// <returns>The WPF child element.</returns>
-        protected override UIElement Child
-        {
-            get
-            {
-                return _sariferOptionsControl.Value;
-            }
-        }
+        protected override UIElement Child => _sariferOptionsControl.Value;
 
         /// <summary>
         /// This occurs when the User selecting 'Ok' and right before the dialog page UI closes entirely.
